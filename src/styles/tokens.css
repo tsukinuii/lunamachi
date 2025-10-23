@@ -1,0 +1,41 @@
+/* Design Tokens — สีแบบ semantic + แยกธีม + รองรับ dark mode */
+@layer base {
+  /* ===== Theme A: Moon (default) ===== */
+  :root,
+  [data-theme="moon"] {
+    --color-bg-main: 234 242 248;        /* #EAF2F8 */
+    --color-text-primary: 27 38 59;      /* #1B263B */
+    --color-text-secondary: 209 216 224; /* #D1D8E0 */
+
+    /* primary สีหลัก */
+    --primary: 74 144 226;         /* #4A90E2 */
+    --primary-foreground: 255 255 255;
+
+    /* secondary สีรอง */
+    --secondary: 116 185 255;      /* #74B9FF */
+    --secondary-foreground: 255 255 255;
+
+    /* accent สีเน้น (highlight) */
+    --accent: 44 62 80;           /* เทียบกับ #2c3e50 */
+    --accent-foreground: 234 242 248; /* เทียบกับ #eaf2f8 */
+  }
+
+  /* ===== Theme B: Aurora ===== */
+  [data-theme="aurora"] {
+    --color-bg-main: 245 247 255;        /* อ่อนกว่าหน่อย */
+    --color-text-primary: 24 32 56;
+    --color-text-secondary: 209 216 224;
+
+    /* primary สีหลัก */
+    --color-primary: 116 185 255;        /* #74B9FF */
+    --color-primary-foreground: 255 255 255;
+
+    /* secondary สีรอง */
+    --color-secondary: 74 144 226;       /* สลับโทน */
+    --color-secondary-foreground: 255 255 255;
+
+    /* accent สีเน้น (highlight) */
+    --accent: 245 247 255;
+    --accent-foreground: 24 32 56;
+  }
+}
