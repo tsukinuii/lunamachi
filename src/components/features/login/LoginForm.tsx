@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
 import LoginField from "./LoginField";
 import Button from "@/components/ui/button/Button";
 import { isValidEmail, isNonEmpty } from "@/lib/validators";
@@ -17,7 +17,7 @@ export function LoginForm({ submitting, onSubmit, error }: LoginFormProps) {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
-  async function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: FormEvent) {
     e.preventDefault();
     if (!isValidEmail(email) || !isNonEmpty(password)) {
       return;

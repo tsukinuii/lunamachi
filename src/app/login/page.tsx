@@ -2,7 +2,7 @@
 
 import { Moon, Star } from "lucide-react";
 import LoginForm from "@/components/features/login/LoginForm";
-import { loginAction } from "@/actions/authActions";
+// import { loginAction } from "@/actions/authActions";
 import * as React from "react";
 import { Sparkles } from "lucide-react";
 
@@ -23,8 +23,12 @@ export default function Login() {
       // const res = await loginAction(email, password);
       // console.log("login ok:", res);
       console.log("login ok:", email, password);
-    } catch (e: any) {
-      setError(e?.message ?? "Login failed");
+    } catch (e: unknown) {
+      const message =
+        typeof e === "object" && e !== null && "message" in e
+          ? String((e as { message?: unknown }).message)
+          : "Login failed";
+      setError(message);
     } finally {
       setSubmitting(false);
     }
