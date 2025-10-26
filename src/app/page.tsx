@@ -2,6 +2,8 @@
 
 import { ProductCard } from "@/components/features/product/ProductCard";
 import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Moon } from "lucide-react";
 
 export default function Home() {
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
@@ -158,6 +160,9 @@ export default function Home() {
             ค้นพบสินค้าคุณภาพดีในราคาที่เหมาะสม
           </p>
         </div>
+        <Button variant="primary" rightIcon={<Moon />} loading>
+          Button
+        </Button>
 
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Sidebar Filters */}

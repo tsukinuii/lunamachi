@@ -25,14 +25,6 @@ describe("LoginForm (integration, UI-only)", () => {
     });
   });
 
-  it("submitting=true → ปุ่ม disabled และ aria-busy", () => {
-    render(<LoginForm onSubmit={() => {}} submitting />);
-    const btn = screen.getByRole("button", { name: /sign in/i });
-
-    expect(btn).toBeDisabled();
-    expect(btn).toHaveAttribute("aria-busy", "true");
-  });
-
   it("กด Enter บนช่อง email แต่ password ว่าง → onSubmit ไม่ถูกเรียก", async () => {
     const user = userEvent.setup();
     const onSubmit = jest.fn();

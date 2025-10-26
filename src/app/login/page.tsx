@@ -1,10 +1,10 @@
 "use client";
 
-import { Moon, Star } from "lucide-react";
+// import { Moon, Star } from "lucide-react";
 import LoginForm from "@/components/features/login/LoginForm";
 // import { loginAction } from "@/actions/authActions";
 import * as React from "react";
-import { Sparkles } from "lucide-react";
+import { Sparkles, Moon, Star } from "lucide-react";
 
 export default function Login() {
   const [submitting, setSubmitting] = React.useState(false);

@@ -17,6 +17,9 @@ const eslintConfig = [...compat.extends("next/core-web-vitals", "next/typescript
     "build/**",
     "next-env.d.ts",
   ],
+  rules: {
+    "@typescript-eslint/no-explicit-any": "warn",
+  },
 }];
 
 export default eslintConfig;

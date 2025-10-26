@@ -5,7 +5,7 @@ import ProductImage from "./parts/ProductImage";
 import DiscountBadge from "./parts/DiscountBadge";
 import FavoriteToggleButton from "./parts/FavoriteToggleButton.client";
 import CategoryPill from "./parts/CategoryPill";
-import RatingStars from "./parts/RatingStars";
+// import RatingStars from "./parts/RatingStars";
 import ProductPrice from "./parts/ProductPrice";
 import AddToCartButton from "./parts/AddToCartButton.client";
 
@@ -16,12 +16,12 @@ export default function ProductCard({ product }: { product: Product }) {
     price,
     originalPrice,
     image,
-    rating,
-    reviews,
+    // rating,
+    // reviews,
     discount,
     category,
     inStock,
-    description,
+    // description,
     isFavorited,
   } = product;
 

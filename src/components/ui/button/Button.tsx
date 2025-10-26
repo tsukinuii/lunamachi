@@ -1,46 +1,105 @@
 "use client";
 import * as React from "react";
+import { Loader } from "lucide-react";
 
-type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
-  loading?: boolean;
-  // variant?: "primary" | "secondary" | "ghost";
-  variant?: string;
-  size?: "default" | "icon";
+type Variant = "primary" | "secondary" | "default" | "outline";
+type Size = "sm" | "md" | "lg";
+type Props = {
+  className?: string;
+  children?: React.ReactNode;
+  variant?: Variant;
   disabled?: boolean;
+  size?: Size;
+  loading?: boolean;
+  leftIcon?: React.ReactNode;
+  rightIcon?: React.ReactNode;
+  sizeCustom?: Partial<{
+    height: string;
+    paddingX: string;
+    gap: string;
+    fontSize: string;
+  }>;
 };
+type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & Props;
 
-export function Button({
-  loading,
-  variant = "primary",
-  className = "",
+export const Button = ({
   children,
-  type = "button",
-  size = "default",
+  className,
+  variant = "default",
+  size = "md",
   disabled = false,
+  loading = false,
+  onClick,
+  leftIcon,
+  rightIcon,
+  sizeCustom,
   ...props
-}: ButtonProps) {
+}: ButtonProps) => {
+  const base =
+    "relative inline-flex items-center justify-center rounded-lg font-medium transition " +
+    "h-[var(--btn-h)] px-[var(--btn-px)] gap-[var(--btn-gap)] text-[length:var(--btn-text)]";
 
+  const variants: Record<Variant, string> = {
+    primary: "bg-primary text-primary-foreground hover:bg-primary/90",
+    secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/90",
+    default: "bg-white text-primary hover:bg-primary/90",
+    outline: "border border-primary text-primary hover:bg-primary/90",
+  };
+
+  const sizes = {
+    sm: { h: "2rem", px: "0.5rem", gap: "0.25rem", text: "0.875rem" },
+    md: { h: "2.5rem", px: "1rem", gap: "0.5rem", text: "0.875rem" },
+    lg: { h: "3rem", px: "1.25rem", gap: "0.625rem", text: "1rem" },
+  } as const;
+
+  const preset = sizes[size];
+  const styleVars = {
+    ["--btn-h" as string]: sizeCustom?.height ?? preset.h,
+    ["--btn-px" as string]: sizeCustom?.paddingX ?? preset.px,
+    ["--btn-gap" as string]: sizeCustom?.gap ?? preset.gap,
+    ["--btn-text" as string]: sizeCustom?.fontSize ?? preset.text,
+  };
+
+  const handleClick: React.MouseEventHandler<HTMLButtonElement> = (e) => {
+    if (loading || disabled) {
+      e.preventDefault();
+      return;
+    }
+    onClick?.(e);
+  };
 
   return (
     <button
-      className={[
-        "h-10 rounded-md px-4 font-medium",
-        size === "icon" ? "h-10 w-10" : "",
-        disabled ? "opacity-60" : "cursor-pointer",
-        variant === "primary"
-          ? "bg-primary text-primary-foreground hover:bg-primary/90"
-          : variant === "secondary"
-          ? "bg-secondary text-secondary-foreground hover:bg-secondary/90"
-          : " ",
-        className,
-      ].join(" ")}
-      aria-busy={loading || undefined}
-      type={type}
-      disabled={disabled}
       {...props}
+      data-variant={variant}
+      data-size={size}
+      aria-busy={loading || undefined}
+      aria-disabled={loading ? true : undefined}
+      style={styleVars}
+      className={`${base} ${variants[variant]} ${
+        disabled ? "cursor-not-allowed opacity-60" : "cursor-pointer"
+      } ${className ?? ""}`}
+      onClick={handleClick}
     >
-      {loading ? "Loading..." : children}
+      {loading ? (
+        <span className="animate-spin inline-flex">
+          <Loader />
+        </span>
+      ) : (
+        <>
+          {leftIcon && (
+            <span aria-hidden className="inline-flex">
+              {leftIcon}
+            </span>
+          )}
+          <span>{children}</span>
+          {rightIcon && (
+            <span aria-hidden className="inline-flex">
+              {rightIcon}
+            </span>
+          )}
+        </>
+      )}
     </button>
   );
-}
-export default Button;
+};
