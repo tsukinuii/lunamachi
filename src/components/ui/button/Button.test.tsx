@@ -1,7 +1,6 @@
 import userEvent from "@testing-library/user-event";
 import { render, screen } from "@testing-library/react";
 import { Button } from "./index";
-import { Loader } from "lucide-react";
 
 describe("UI/Button", () => {
   it("renders children", () => {

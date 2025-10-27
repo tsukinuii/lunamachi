@@ -2,7 +2,7 @@
 import * as React from "react";
 import { Loader } from "lucide-react";
 
-type Variant = "primary" | "secondary" | "default" | "outline";
+type Variant = "primary" | "secondary" | "default" | "outline" | "custom";
 type Size = "sm" | "md" | "lg";
 type Props = {
   className?: string;
@@ -13,6 +13,7 @@ type Props = {
   loading?: boolean;
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
+  variantCustom?: string;
   sizeCustom?: Partial<{
     height: string;
     paddingX: string;
@@ -33,6 +34,7 @@ export const Button = ({
   leftIcon,
   rightIcon,
   sizeCustom,
+  variantCustom,
   ...props
 }: ButtonProps) => {
   const base =
@@ -42,8 +44,9 @@ export const Button = ({
   const variants: Record<Variant, string> = {
     primary: "bg-primary text-primary-foreground hover:bg-primary/90",
     secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/90",
-    default: "bg-white text-primary hover:bg-primary/90",
-    outline: "border border-primary text-primary hover:bg-primary/90",
+    default: "bg-white text-primary hover:bg-primary/90 hover:text-primary-foreground",
+    outline: "border border-primary text-primary hover:bg-primary/90 hover:text-primary-foreground",
+    custom: variantCustom || "",
   };
 
   const sizes = {
@@ -53,7 +56,7 @@ export const Button = ({
   } as const;
 
   const preset = sizes[size];
-  const styleVars = {
+  const styleSize = {
     ["--btn-h" as string]: sizeCustom?.height ?? preset.h,
     ["--btn-px" as string]: sizeCustom?.paddingX ?? preset.px,
     ["--btn-gap" as string]: sizeCustom?.gap ?? preset.gap,
@@ -75,7 +78,7 @@ export const Button = ({
       data-size={size}
       aria-busy={loading || undefined}
       aria-disabled={loading ? true : undefined}
-      style={styleVars}
+      style={styleSize}
       className={`${base} ${variants[variant]} ${
         disabled ? "cursor-not-allowed opacity-60" : "cursor-pointer"
       } ${className ?? ""}`}
