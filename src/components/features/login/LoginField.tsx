@@ -1,6 +1,6 @@
 "use client";
 import * as React from "react";
-import { Input } from "@/components/ui/input/Input";
+import { Input } from "@/components/ui/input/index";
 
 type LoginFieldProps = {
   type: "email" | "password" | "text";

@@ -5,7 +5,10 @@ import { Button } from "@/components/ui/button";
 import { isValidEmail, isNonEmpty } from "@/lib/validators";
 import { Mail, Lock, Eye, EyeOff, Moon } from "lucide-react";
 
-export type LoginFormValues = { email: string; password: string };
+export type LoginFormValues = { 
+  email: string; 
+  password: string 
+};
 type LoginFormProps = {
   submitting?: boolean;
   onSubmit: (values: LoginFormValues) => Promise<void> | void;
